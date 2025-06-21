@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+    {% if orders %}
+        <ul>
+            {% for order in orders %}
+                <li>
+                    {{ order.product.name }} - ₹{{ order.product.price }} 
+                    (Ordered on {{ order.ordered_at|date:"d M Y H:i" }})
+                </li>
+            {% endfor %}
+        </ul>
+        <p>Total: ₹{{ orders|length|mul:orders.0.product.price }}</p>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+    <p><a href="{% url 'product_list' %}">Continue Shopping</a></p>
+</body>
+</html>
